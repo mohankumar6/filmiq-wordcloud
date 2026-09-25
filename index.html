@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FILM IQ STUDIOS - Tamil Word Cloud Studio</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">✦</span><div><strong>FILM IQ STUDIOS</strong><span>WORD CLOUD STUDIO</span></div></div>
+  <div class="top-actions">
+    <button id="randomBtn" class="ghost">↻ Randomize</button>
+    <button id="resetBtn" class="ghost">Reset</button>
+    <button id="exportBtn" class="primary">Export PNG</button>
+  </div>
+</header>
+
+<main class="workspace">
+  <aside class="panel left">
+    <section>
+      <div class="section-title">CONTENT <span>01</span></div>
+      <label>Words / Text</label>
+      <textarea id="inputText" spellcheck="false">
+முத்தைத்தரு பத்தித் திருநகை அத்திக்கிறை சத்திச் சரவண முத்திக்கொரு வித்துக் குருபர  
+எனவோதும் 
+முக்கட்பர மற்குச் சுருதியின் முற்பட்டது கற்பித் திருவரும் முப்பத்துமு வர்க்கத் தமரரும்
+அடிபேணப்</textarea>
+      <div class="grid2">
+        <label>Repeat <input id="repeat" type="number" min="1" max="20" value="1"></label>
+        <label>Min word length <input id="minLen" type="number" min="1" max="20" value="1"></label>
+      </div>
+      <div class="checks"><label><input id="split" type="checkbox" checked> Split words automatically</label><label><input id="dedupe" type="checkbox"> Remove duplicates</label></div>
+    </section>
+
+    <section>
+      <div class="section-title">SHAPE <span>02</span></div>
+      <label>Shape
+        <select id="shapeSelect">
+          <option value="rectangle">Rectangle</option>
+          <option value="circle" selected>Circle</option>
+          <option value="heart">❤ Heart</option>
+          <option value="star">★ Star</option>
+          <option value="cinema">🎬 Cinema</option>
+          <option value="reel">🎞️ Film reel</option>
+          <option value="music">🎵 Music</option>
+          <option value="silhouette">👤 Silhouette</option>
+          <option value="explosion">💥 Explosion</option>
+          <option value="crown">👑 Crown</option>
+          <option value="diamond">Diamond</option>
+          <option value="triangle">Triangle</option>
+          <option value="rounded">Rounded</option>
+          <option value="custom">Custom polygon</option>
+        </select>
+      </label>
+      <label>Shape scale <input id="shapeScale" type="range" min="55" max="100" value="88"><output id="shapeScaleOut">88%</output></label>
+      <label>Inner padding <input id="padding" type="range" min="0" max="40" value="8"><output id="paddingOut">8</output></label>
+      <label id="customShapeLabel" style="display:none">Custom polygon (x,y per line, percent 0-100)
+        <textarea id="customShape" placeholder="10,10\n90,10\n90,90\n10,90" rows="4"></textarea>
+      </label>
+    </section>
+
+    <section>
+      <div class="section-title">CANVAS <span>03</span></div>
+      <div class="grid2">
+        <label>Preset <select id="preset"><option value="1920x1080">16:9 Cinema</option><option value="1080x1080">Square</option><option value="1080x1350">Portrait</option><option value="1080x1920">Story</option><option value="custom">Custom</option></select></label>
+        <label>Background <select id="bg"><option value="transparent">Transparent</option><option value="dark">Cinema Dark</option><option value="gradient">Gradient</option></select></label>
+      </div>
+      <div class="grid2">
+        <label>Width <input id="width" type="number" value="1920"></label>
+        <label>Height <input id="height" type="number" value="1080"></label>
+      </div>
+    </section>
+  </aside>
+
+  <section class="stage-wrap">
+    <div class="stage-toolbar"><span id="canvasInfo">1920 × 1080</span><span>SEED <b id="seedLabel"></b></span><span>LIVE PREVIEW</span></div>
+    <div class="stage"><canvas id="canvas" width="1920" height="1080"></canvas></div>
+    <div id="busyOverlay" class="busy-overlay" aria-hidden="true" style="display:none">
+      <div class="busy-card"><div class="spinner"></div><div class="busy-text">Generating…</div></div>
+    </div>
+    <div class="stage-footer"><span>Browser Canvas Renderer</span><span>PNG • 16:9 • Tamil Unicode</span></div>
+  </section>
+
+  <aside class="panel right">
+    <section>
+      <div class="section-title">TYPOGRAPHY <span>04</span></div>
+        <div class="advanced-typography">
+          <label>Font weight style
+            <select id="fontStyleOpt">
+              <option value="solid">Solid</option>
+              <option value="metallic">Metallic</option>
+              <option value="neon">Neon</option>
+              <option value="emboss">Emboss</option>
+              <option value="outline">Outline</option>
+            </select>
+          </label>
+          <label>Curved text <input id="curved" type="checkbox"></label>
+          <label>Uppercase <input id="uppercase" type="checkbox"></label>
+        </div>
+        <div class="multi-select-wrap">
+          <label>Font</label>
+          <div class="multi-select" id="fontDropdown">
+            <button type="button" class="multi-toggle">Choose fonts ▾</button>
+            <div class="multi-list" id="fontList" aria-hidden="true">
+              <label><input type="checkbox" class="font-option" data-value="Inter, system-ui, sans-serif" checked> System Sans</label>
+              <label><input type="checkbox" class="font-option" data-value="'Noto Sans Tamil', Inter, system-ui, sans-serif" checked> Noto Sans Tamil</label>
+              <label><input type="checkbox" class="font-option" data-value="'Noto Serif Tamil', serif" checked> Noto Serif Tamil</label>
+              <label><input type="checkbox" class="font-option" data-value="'Baloo Tammudu 2', Inter, system-ui, sans-serif" checked> Baloo Tammudu 2</label>
+              <label><input type="checkbox" class="font-option" data-value="monospace" checked> Mono</label>
+            </div>
+            <small>Select one or more fonts — each word will get a random font.</small>
+          </div>
+        </div>
+        <div class="multi-select-wrap">
+          <label>Orientation</label>
+          <div class="multi-select" id="orientationDropdown">
+            <button type="button" class="multi-toggle">Choose orientations ▾</button>
+            <div class="multi-list" id="orientationList" aria-hidden="true">
+              <label><input type="checkbox" class="ori-option" data-value="horizontal" checked> Horizontal (0°)</label>
+              <label><input type="checkbox" class="ori-option" data-value="vertical" checked> Vertical (90°)</label>
+              <label><input type="checkbox" class="ori-option" data-value="both" checked> Both (0° / 90°)</label>
+              <label><input type="checkbox" class="ori-option" data-value="tilt" checked> Tilted (± rotation)</label>
+              <label><input type="checkbox" class="ori-option" data-value="random" checked> Random (any)</label>
+            </div>
+          </div>
+        </div>
+        <div class="grid2">
+        <label>Min size <input id="minSize" type="number" min="8" max="200" value="30"></label>
+        <label>Max size <input id="maxSize" type="number" min="10" max="400" value="50"></label>
+      </div>
+      <label>Weight <input id="weight" type="range" min="300" max="900" step="100" value="700"><output id="weightOut">700</output></label>
+      <label>Letter spacing <input id="letter" type="range" min="-2" max="12" step=".5" value="0"><output id="letterOut">0</output></label>
+      <label>Rotation <input id="rotation" type="range" min="0" max="90" value="20"><output id="rotationOut">±20°</output></label>
+    </section>
+
+    <section>
+      <div class="section-title">LAYOUT <span>05</span></div>
+      <label>Density <input id="density" type="range" min="25" max="100" value="78"><output id="densityOut">78%</output></label>
+      <label>Collision gap <input id="gap" type="range" min="0" max="30" value="6"><output id="gapOut">6</output></label>
+      <label>Placement attempts <input id="attempts" type="range" min="500" max="10000" step="500" value="4000"><output id="attemptsOut">4000</output></label>
+      <label>Seed <input id="seed" type="number" value="0"><small>0 = new random seed</small></label>
+    </section>
+
+    <section>
+      <div class="section-title">STYLE <span>06</span></div>
+      <div class="swatches">
+        <button data-style="gold" class="swatch active">GOLD</button>
+        <button data-style="mono" class="swatch">MONO</button>
+        <button data-style="fire" class="swatch">FIRE</button>
+        <button data-style="cyan" class="swatch">CYAN</button>
+      </div>
+      <div class="multi-select-wrap">
+        <label>Color palettes</label>
+        <div class="multi-select" id="colorDropdown">
+          <button type="button" class="multi-toggle">Choose palettes ▾</button>
+          <div class="multi-list" id="colorList" aria-hidden="true">
+            <label><input type="checkbox" class="color-option" data-value="gold" checked> Gold</label>
+            <label><input type="checkbox" class="color-option" data-value="mono" checked> Mono</label>
+            <label><input type="checkbox" class="color-option" data-value="fire" checked> Fire</label>
+              <label><input type="checkbox" class="color-option" data-value="cyan" checked> Cyan</label>
+              <label><input type="checkbox" class="color-option" data-value="random" checked> Random Colors</label>
+            <label><input type="checkbox" class="color-option" data-value="ocean" checked> Ocean</label>
+            <label><input type="checkbox" class="color-option" data-value="vivid" checked> Vivid</label>
+            <label><input type="checkbox" class="color-option" data-value="warm" checked> Warm</label>
+            <label><input type="checkbox" class="color-option" data-value="earth" checked> Earth</label>
+          </div>
+          <small>Select one or more palettes — words will pick random palette/colors.</small>
+        </div>
+      </div>
+      <div class="section-title">WORD APPEARANCE</div>
+      <label>Appearance preset <select id="appearance"><option value="solid">Solid</option><option value="gradient">Gradient</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="neon">Neon</option><option value="poster">Film-poster</option></select></label>
+      <div class="grid2">
+        <label>Theme <select id="theme"><option value="dark">Dark</option><option value="light">Light</option></select></label>
+      </div>
+      <label>Opacity <input id="opacity" type="range" min="30" max="100" value="95"><output id="opacityOut">95%</output></label>
+      <label><input id="shadow" type="checkbox" checked> Cinematic shadow</label>
+    </section>
+  </aside>
+</main>
+<script src="js/random.js"></script>
+<script src="js/mask-engine.js"></script>
+<script src="js/layout-engine.js"></script>
+<script src="js/typography.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

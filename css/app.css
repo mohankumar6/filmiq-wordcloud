@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Baloo+Tammudu+2:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;700&family=Noto+Serif+Tamil:wght@400;700&display=swap');
+:root{--bg:#080a0e;--panel:#101319;--panel2:#151922;--line:#252b35;--text:#e9edf2;--muted:#7f8997;--accent:#d6a84f;--accent2:#f0c86a}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:radial-gradient(circle at 50% 30%,#171b24 0,#090b0f 48%,#050608 100%);color:var(--text);font-family:Inter,system-ui,sans-serif}body{overflow:hidden}
+
+/* Light theme overrides */
+body.light{background:linear-gradient(180deg,#f6f7f9 0,#eef2f6 100%);color:#222}
+body.light .topbar{background:rgba(255,255,255,0.9);border-bottom-color:#e6e9ee}
+body.light .panel{background:#fff;color:#222;border-color:#e6e9ee}
+body.light .multi-toggle, body.light input[type=number], body.light select{background:#fff;border-color:#e2e6ea;color:#222}
+body.light textarea{background:#fff;border-color:#e6eaef;color:#222}
+body.light .multi-list{background:#fff;border-color:#e6eaef;color:#222}
+body.light .shape, body.light .swatch{background:#fff;border-color:#e6eaef;color:#222}
+body.light input[type=range]{accent-color:#d6a84f}
+body.light .ghost, body.light .primary{background:#fff;color:#222;border-color:#e6e9ee}
+body.light .stage-wrap{background:linear-gradient(180deg,#ffffff,#f7f9fb)}
+
+/* Per-word color helpers (palettes applied in JS using styleColors) */
+.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(8,10,14,.94);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:11px;letter-spacing:1px}.brand-mark{font-size:24px;color:var(--accent)}.brand strong{display:block;font-size:13px;letter-spacing:2px}.brand span:not(.brand-mark){display:block;color:var(--muted);font-size:9px;letter-spacing:2.4px;margin-top:3px}
+button,select,input,textarea{font:inherit}.top-actions{display:flex;gap:8px}.ghost,.primary{border:1px solid var(--line);background:#11151c;color:#cbd1da;border-radius:7px;padding:9px 14px;cursor:pointer}.primary{background:linear-gradient(135deg,#d2a449,#9f7228);color:#08090b;border:0;font-weight:800}.ghost:hover{border-color:#4a5361}
+.workspace{height:calc(100vh - 68px);display:grid;grid-template-columns:300px minmax(400px,1fr) 300px;min-height:0}
+.panel{background:rgba(14,17,23,.94);overflow:auto;padding:18px 17px}.left{border-right:1px solid var(--line)}.right{border-left:1px solid var(--line)}section{padding-bottom:21px;margin-bottom:18px;border-bottom:1px solid var(--line)}section:last-child{border:0}.section-title{font-size:10px;font-weight:800;letter-spacing:1.8px;color:#aeb7c3;margin-bottom:14px}.section-title span{float:right;color:#4d5663}
+/* multi-select dropdown for fonts/orientation */
+.multi-select{position:relative}
+.multi-toggle{width:100%;height:36px;background:linear-gradient(180deg,#0e1216,#071018);border:1px solid #1b2026;color:#e6eef6;border-radius:9px;padding:8px 12px;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.multi-toggle .label{font-weight:700;font-size:13px}
+.multi-toggle .caret{font-size:11px;color:#9fb0c8}
+.multi-list{position:absolute;left:0;right:0;top:46px;background:linear-gradient(180deg,#071018,#04111a);border:1px solid #1f2630;padding:8px;border-radius:10px;display:none;max-height:260px;overflow:auto;z-index:40;box-shadow:0 12px 40px rgba(3,6,12,.6)}
+.multi-list label{display:block;font-size:12px;color:#cbd1da;padding:6px 4px}
+.multi-list label input{margin-right:8px}
+.multi-select .multi-toggle:focus+.multi-list,.multi-select.open .multi-list{display:block}
+/* custom scrollbar for dropdowns and textarea */
+.multi-list::-webkit-scrollbar, textarea::-webkit-scrollbar, .panel::-webkit-scrollbar{width:10px;height:10px}
+.multi-list::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb, .panel::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#394852,#1f2630);border-radius:8px}
+.multi-list label{display:block;font-size:13px;color:#dbe9f5;padding:8px 6px;border-radius:6px}
+
+/* style the toggle like a button */
+.multi-select .multi-toggle{border:0}
+.multi-select .multi-toggle:hover{box-shadow:0 6px 18px rgba(3,6,12,.45)}
+
+/* improve textarea scrollbar */
+textarea{scrollbar-gutter:stable;overflow:auto}
+/* popup variant: center near toggle and close on outside click */
+.multi-select.popup{position:relative}
+.multi-select.popup .multi-list{position:fixed;left:50%;top:40%;transform:translate(-50%,-10%);width:360px;max-height:60vh;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+label{display:block;color:#a9b2bf;font-size:10px;font-weight:600;letter-spacing:.5px;margin:11px 0}textarea{width:100%;height:150px;resize:vertical;background:#0a0d12;border:1px solid var(--line);border-radius:7px;color:#e8edf2;padding:11px;line-height:1.65;outline:0}textarea:focus,input:focus,select:focus{border-color:#6c5832}
+input[type=number],select{width:100%;height:34px;background:#0b0e13;border:1px solid var(--line);color:#dfe4ea;border-radius:6px;padding:0 9px;outline:0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}input[type=range]{width:calc(100% - 38px);accent-color:var(--accent);vertical-align:middle}output{float:right;color:var(--accent2);font-size:10px}.checks{font-size:10px;color:#87919e}.checks label,.swatches label{display:flex;gap:7px;align-items:center}.shape-grid,.swatches{display:grid;grid-template-columns:1fr 1fr;gap:7px}.shape,.swatch{background:#0b0e13;border:1px solid var(--line);color:#8f99a6;padding:9px 4px;border-radius:6px;font-size:9px;font-weight:800;letter-spacing:1px;cursor:pointer}.shape.active,.swatch.active{border-color:#a47b32;color:#e4bb68;background:#19150d}
+.stage-wrap{display:flex;flex-direction:column;min-width:0;background:#07090c;position:relative}
+.stage-toolbar,.stage-footer{height:36px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;color:#626d7b;font-size:9px;letter-spacing:1px}
+.stage-toolbar{border-bottom:1px solid var(--line)}.stage-toolbar b{color:var(--accent2)}
+.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:28px}
+/* .stage canvas{max-width:100%;max-height:100%;width:auto;height:auto;box-shadow:0 24px 70px #000;border:1px solid #252a32} */
+.stage canvas{max-width:100%;max-height:100%;width:auto;height:auto;border:1px solid #969696}
+.stage-footer{border-top:1px solid var(--line)}
+/* Busy overlay while rendering */
+.busy-overlay{position:absolute;inset:68px 300px 0 300px;display:none;align-items:center;justify-content:center}
+.busy-overlay[aria-hidden="false"], .busy-overlay.active{display:flex;pointer-events:auto}
+.busy-card{background:rgba(3,6,12,0.84);backdrop-filter:blur(6px);color:var(--text);padding:18px 22px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.spinner{width:28px;height:28px;border-radius:50%;border:4px solid rgba(255,255,255,0.08);border-top-color:var(--accent);animation:spin 1s linear infinite}
+.busy-text{font-weight:700;font-size:13px}
+@keyframes spin{to{transform:rotate(360deg)}}
+small{display:block;color:#56606d;font-size:9px;margin-top:5px}
+
+/* Keep center stage fixed and make side panels scrollable */
+.stage-wrap{overflow:hidden}
+.panel{overflow-y:auto;overflow-x:hidden}
+.panel::-webkit-scrollbar{width:10px}
+.panel::-webkit-scrollbar-thumb{background:#1f2630;border-radius:8px}
+@media(max-width:1050px){.workspace{grid-template-columns:250px 1fr}.right{display:none}}@media(max-width:760px){body{overflow:auto}.workspace{display:block;height:auto}.left{border:0}.stage-wrap{height:65vh}.panel{border:0}.right{display:block}}
